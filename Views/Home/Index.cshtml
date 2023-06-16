@@ -6,3 +6,23 @@
     <h1 class="display-4">Life Shop</h1>
     <h3>"Your Own Piece of Online Space"</h3>
 </div>
+@{
+    if(Convert.ToInt32(ViewData["LoggedIn"]) == 0)
+    {
+        <div class="text-center">
+        <h5>Welcome Guest! Please <a asp-action = "Register">Sign In</a></h5>
+        <h5>New User? <a asp-action="Register">Register</a></h5>
+        </div>
+
+    }
+    else if (Convert.ToInt32(ViewData["LoggedIn"])== 1)
+    {
+        <div>
+        <h5>Welcome User! What would you like to do today</h5>
+        </div>
+    }
+    else
+    {
+        <h3>There was an unknown error!</h3>
+    }
+}

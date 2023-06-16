@@ -126,5 +126,27 @@
             staticConnection.Close();
             return list;
         }
+
+        public static int ValidateLogin(string userName, string password)
+        {
+            SqlConnection staticConnection = new(ConnectionStrings.local);
+            SqlCommand theCommand = new("SELECT ID FROM Customer WHERE Username='" + userName + "' AND Password='" + password + "';", staticConnection);
+            staticConnection.Open();
+            int theID;
+            try
+            {
+                theID = Convert.ToInt32(theCommand.ExecuteScalar());
+            }
+            catch (Exception ex)
+            {
+                theID = 0;
+                Console.WriteLine(ex.Message);
+            }
+            finally
+            {
+                staticConnection.Close();
+            }
+            return theID;
+        }
     }
 }
