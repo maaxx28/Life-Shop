@@ -9,11 +9,11 @@
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }
-        public int Phone { get; set; }
+        public string Phone { get; set; }
         public string Address { get; set; }
         public string City { get; set; }
         public string State { get; set; }
-        public int Zip { get; set; }
+        public string Zip { get; set; }
         public string UserName { get; set; }
         public string Password { get; set; }
         public string Role { get; set; }
@@ -31,11 +31,11 @@
                 FirstName = theReader.GetString(1);
                 LastName = theReader.GetString(2);
                 Email = theReader.GetString(3);
-                Phone = theReader.GetInt32(4);
+                Phone = theReader.GetString(4);
                 Address = theReader.GetString(5);
                 City = theReader.GetString(6);
                 State = theReader.GetString(7);
-                Zip = theReader.GetInt32(8);
+                Zip = theReader.GetString(8);
                 UserName = theReader.GetString(9);
                 Password = theReader.GetString(10);
                 Role = theReader.GetString(11);
@@ -45,11 +45,11 @@
                 FirstName = "";
                 LastName = "";
                 Email = "";
-                Phone = 0000000000;
+                Phone = "";
                 Address = "";
                 City = "";
                 State = "";
-                Zip = 00000;
+                Zip = "";
                 UserName = "";
                 Password = "";
                 Role = "";
@@ -116,6 +116,28 @@
             {
                 staticConnection.Close();
             }
+        }
+
+        public static int ValidateLogin(string userName, string password)
+        {
+            SqlConnection staticConnection = new(ConnectionStrings.local);
+            SqlCommand theCommand = new("SELECT ID FROM Employee WHERE EmployeeUsername='" + userName + "' AND EmployeePassword='" + password + "';", staticConnection);
+            staticConnection.Open();
+            int theID;
+            try
+            {
+                theID = Convert.ToInt32(theCommand.ExecuteScalar());
+            }
+            catch (Exception ex)
+            {
+                theID = 0;
+                Console.WriteLine(ex.Message);
+            }
+            finally
+            {
+                staticConnection.Close();
+            }
+            return theID;
         }
         public static List<Employee> GetList()
         {

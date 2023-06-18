@@ -8,11 +8,11 @@
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }
-        public int Phone { get; set; }
+        public string Phone { get; set; }
         public string Address { get; set; }
         public string City { get; set; }
         public string State { get; set; }
-        public int Zip { get; set; }
+        public string Zip { get; set; }
         public string UserName { get; set; }
         public string Password { get; set; }
 
@@ -29,11 +29,11 @@
                 FirstName = theReader.GetString(1);
                 LastName = theReader.GetString(2);
                 Email = theReader.GetString(3);
-                Phone = theReader.GetInt32(4);
+                Phone = theReader.GetString(4);
                 Address = theReader.GetString(5);
                 City = theReader.GetString(6);
                 State = theReader.GetString(7);
-                Zip = theReader.GetInt32(8);
+                Zip = theReader.GetString(8);
                 UserName = theReader.GetString(9);
                 Password = theReader.GetString(10);
             }
@@ -42,11 +42,11 @@
                 FirstName = "";
                 LastName = "";
                 Email = "";
-                Phone = 0000000000;
+                Phone = "";
                 Address = "";
                 City = "";
                 State = "";
-                Zip = 00000;
+                Zip = "";
                 UserName = "";
                 Password = "";
             }
@@ -91,9 +91,15 @@
             {
                 Connection.Close();
             }
-
+            if(success)
+            {
+                ShoppingCart newCart = new ShoppingCart(0);
+                newCart.CustomerID = ID;
+                newCart.Save();
+            }
             return message;
         }
+
         public static void Delete(int id)
         {
             SqlConnection staticConnection = new(ConnectionStrings.local);
@@ -127,10 +133,32 @@
             return list;
         }
 
+        public static string ValidUserName(string a)
+        {
+            SqlConnection staticConnection = new(ConnectionStrings.local);
+            SqlCommand theCommand = new("SELECT CustomerUsername FROM Customer WHERE CustomerUsername='" + a + "';", staticConnection);
+            staticConnection.Open();
+            String theUserName;
+            try
+            {
+                theUserName = Convert.ToString(theCommand.ExecuteScalar());
+            }
+            catch (Exception ex)
+            {
+                theUserName = "";
+                Console.WriteLine(ex.Message);
+            }
+            finally
+            {
+                staticConnection.Close();
+            }
+            return theUserName;
+
+        }
         public static int ValidateLogin(string userName, string password)
         {
             SqlConnection staticConnection = new(ConnectionStrings.local);
-            SqlCommand theCommand = new("SELECT ID FROM Customer WHERE Username='" + userName + "' AND Password='" + password + "';", staticConnection);
+            SqlCommand theCommand = new("SELECT ID FROM Customer WHERE CustomerUsername='" + userName + "' AND CustomerPassword='" + password + "';", staticConnection);
             staticConnection.Open();
             int theID;
             try

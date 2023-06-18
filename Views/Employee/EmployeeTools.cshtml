@@ -1,0 +1,18 @@
+﻿@{
+    <p>@ViewData["Message"]</p>
+
+    if (Convert.ToInt32(ViewData["LoggedInEmployee"])== 0)
+    {
+        <h4>Please Sign In</h4>
+    }
+    else
+    {
+        <center>
+        <h2>Welcome @ViewBag.CurrentEmply.FirstName! What would you like to do today?</h2>
+             <a class="nav-link text-dark" asp-area="" asp-controller="Employee" asp-action="ManageProducts">Manage Products</a>
+             <a class="nav-link text-dark" asp-area="" asp-controller="Employee" asp-action="EmployeeSignout">Sign Out</a>
+        </center>
+    }
+}
+
+

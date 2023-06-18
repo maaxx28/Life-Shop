@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using LifeShop.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace LifeShop.Controllers
 {
@@ -6,6 +7,8 @@ namespace LifeShop.Controllers
     {
         public IActionResult ShoppingIndex()
         {
+           List<Product> shopItems = Models.Product.GetList();
+            ViewBag.shopItems = shopItems;
            return View("Shop");
         }
     }

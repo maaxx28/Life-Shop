@@ -2,7 +2,7 @@
 {
     public class ConnectionStrings
     {
-        public static string local = "Data Source=localhost\\SQLEXPRESS; Integrated Security=true; Initial Catalog=LifeShop;";
+        public static string local = "Data Source=localhost\\SQLEXPRESS; Integrated Security=true; Initial Catalog=LifeShopData;";
     }
 
     public class Product

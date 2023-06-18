@@ -2,3 +2,46 @@
 }
 
 <h2>Shopping Corner</h2>
+@{
+    List<Product> shopItems = ViewBag.shopItems;
+        <center>
+        
+        <h2>Products for Sale</h2>
+
+        </center>
+        <br />
+        <hr />
+        <center>
+        @*This is the table rows for products.*@
+        <table class="w-75">
+            <tr class="headerrow2">
+                <td class="cell4">Name</td>
+                <td class="cell4">Description</td>
+                <td class="cell4">Price</td>
+                <td class="cell4">Discount</td>
+                <td class="cell4">Total</td>
+            </tr>
+        @{
+            if(ViewBag.shopItems == null)
+            {
+                <tr>
+                <td class="cell4" colspan="5">No items for Sale.</td>
+                </tr>
+            }
+            else
+            {
+                foreach (Product forSale in shopItems)
+                {
+                        <tr>
+                            <td class="cell4">@forSale.Name</td>
+                            <td class="cell4">@forSale.Description</td>
+                            <td class="cell4">@forSale.Price</td>
+                            <td class="cell4">@forSale.Discount*100 %</td>
+                            <td class="cell4">@forSale.Price*@forSale.Discount</td>
+                            <td class="cell4"><a asp-action="ViewDetails" class="link-button-nofloat" asp-route-id="@forSale.ID">Details</a></td>
+                        </tr>
+                }
+            }
+         
+        }</table></center>
+ }
