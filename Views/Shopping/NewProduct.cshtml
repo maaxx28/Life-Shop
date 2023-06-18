@@ -1,0 +1,50 @@
+﻿
+@{
+    <center>
+    <h3>New Product Details</h3>
+    <p>@ViewData["Message"];</p>
+    <form asp-controller="Shopping" asp-action="AddProduct">
+    <dl class="row">
+        <dt class="col-sm-2">
+            Product Name
+        </dt>
+        <dd class="col-sm-10">
+            <input name="addName" />
+        </dd>
+    </dl>
+        <dl class="row">
+        <dt class="col-sm-2">
+            Description
+        </dt>
+        <dd class="col-sm-10">
+            <input name="addDesc" />
+        </dd>
+    </dl>
+        <dl class="row">
+        <dt class="col-sm-2">
+            Picture
+        </dt>
+        <dd class="col-sm-10">
+            <input name="addPicture" />
+        </dd>
+    </dl>
+        <dl class="row">
+        <dt class="col-sm-2">
+            Price
+        </dt>
+        <dd class="col-sm-10">
+            <input name="addPrice" type="number" step="0.01"/>
+        </dd>
+    </dl>
+        <dl class="row">
+        <dt class="col-sm-2">
+            Discount
+        </dt>
+        <dd class="col-sm-10">
+            <input name="addDiscount" type="number" />
+        </dd>
+    </dl>
+    <input type="submit">
+    </form>
+    </center>
+}

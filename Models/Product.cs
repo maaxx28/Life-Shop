@@ -12,7 +12,7 @@
         public string Name { get; set; }
         public string Description { get; set; }
         public decimal Price { get; set; }
-        public byte Picture { get; set; }
+        public string Picture { get; set; }
         public decimal Discount { get; set; }
 
         public Product(int id)
@@ -21,22 +21,22 @@
             {
                 ID = id;
                 Connection.Open();
-                SqlCommand theCommand = new("SELECT * FROM Employee WHERE ID = " + id, Connection);
+                SqlCommand theCommand = new("SELECT * FROM Product WHERE ID = " + id, Connection);
                 SqlDataReader theReader = theCommand.ExecuteReader();
                 theReader.Read();
 
                 Name = theReader.GetString(1);
                 Description = theReader.GetString(2);
                 Price = theReader.GetDecimal(3);
-                Picture = theReader.GetByte(4);
-                Discount = theReader.GetDecimal(5);
+                Picture = theReader.GetString(4);
+                Discount = theReader.GetInt32(5);
             }
             else
             {
                 Name = string.Empty;
                 Description = string.Empty;
                 Price = 0;
-                Picture = new byte();
+                Picture = "";
                 Discount = 0;
             }
         }

@@ -36,3 +36,19 @@ GO
 Select * From Employee;
 GO
 
+Select CustomerUsername From Customer; 
+go
+
+Exec ProductUpdate
+@ID=0,
+@ItemName="Life Blanket",
+@ItemDesc="Signature Company Blanket",
+@Price=35,
+@Discount = 10,
+@Picture="\Image\LifePictures.png",
+@NewID=0;
+GO
+Select * From Product;
+GO
+Delete From Product;
+GO

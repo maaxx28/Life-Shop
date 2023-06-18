@@ -16,3 +16,9 @@ html {
 body {
   margin-bottom: 60px;
 }
+td.cell4, th.cell4 {
+    padding: 13px;
+    margin: 3px;
+    vertical-align: middle;
+    text-align: center;
+}
