@@ -31,6 +31,8 @@
                 PaymentCity = theReader.GetString(6);
                 PaymentState = theReader.GetString(7);
                 PaymentZip = theReader.GetInt32(8);
+
+                Connection.Close();
             }
             else
             {

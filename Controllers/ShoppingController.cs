@@ -70,6 +70,95 @@ namespace LifeShop.Controllers
             ViewBag.thisProduct = thisProduct;
             return View("ViewProduct");
         }
+        public IActionResult AddToCart(int id)
+        {
+            int loggedInCustomer = HttpContext.Session.GetInt32("_LoggedInCustomerID") ?? 0;
+            
+
+            int custCart = Models.Customer.GetCart(loggedInCustomer);
+            ShoppingCart thisCart =  new(custCart);
+            Product thisProduct = new Product(id);
+
+            CartItem newItem = new CartItem(0);
+            
+            newItem.ProductID = id;
+            newItem.CartID = thisCart.ID;
+            newItem.Quantity = 1;
+            newItem.Price = (thisProduct.Price * (100 - thisProduct.Discount)) / 100;
+
+
+            
+            newItem.Save();
+
+            List<CartItem> cartItems = CartItem.GetListByCart(custCart);
+            int cartQuantity = 0;
+            decimal cartCost = 0;
+            foreach (CartItem item in cartItems)
+            {
+                cartQuantity += item.Quantity;
+                cartCost += item.Price;
+            }
+            thisCart.TotalItems = cartQuantity;
+            thisCart.TotalCost = cartCost;
+            String a = thisCart.Save();
+
+            ShoppingIndex();
+            ViewData["Message"]= a;
+            return View("Shop");
+        }
+        public IActionResult ViewCart() 
+        {
+            int loggedInCustomer = HttpContext.Session.GetInt32("_LoggedInCustomerID") ?? 0;
+            int custCart = Models.Customer.GetCart(loggedInCustomer);
+            ShoppingCart thisCart = new ShoppingCart(custCart);
+            List<CartItem> CartItems = Models.CartItem.GetListByCart(thisCart.ID);
+            ViewBag.ShoppingCart = CartItems;
+            ViewBag.CartDetails = thisCart;
+            
+            return View("ViewCart");
+        }
+        public IActionResult RemoveItem(int id)
+        {
+            CartItem thisItem = new CartItem(id);
+            ViewData["Message"]= thisItem.Delete(id);
+
+            int loggedInCustomer = HttpContext.Session.GetInt32("_LoggedInCustomerID") ?? 0;
+            int custCart = Models.Customer.GetCart(loggedInCustomer);
+            ShoppingCart thisCart = new(custCart);
+
+            List<CartItem> cartItems = CartItem.GetListByCart(custCart);
+            int cartQuantity = 0;
+            decimal cartCost = 0;
+            foreach (CartItem item in cartItems)
+            {
+                cartQuantity += item.Quantity;
+                cartCost += item.Price;
+            }
+            thisCart.TotalItems = cartQuantity;
+            thisCart.TotalCost = cartCost;
+            thisCart.Save();
+            
+            ViewCart();
+            return View("ViewCart");
+        }
+        public IActionResult EmptyCart()
+        {
+            int loggedInCustomer = HttpContext.Session.GetInt32("_LoggedInCustomerID") ?? 0;
+            int cartID = Models.Customer.GetCart(loggedInCustomer);
+            List<CartItem> deleteList = CartItem.GetListByCart(cartID);
+
+            foreach(CartItem item in deleteList) 
+            {
+                item.Delete(item.ID);
+            }
+
+            ShoppingCart thisCart = new(cartID);
+            thisCart.TotalItems = 0;
+            thisCart.TotalCost = 0;
+
+            ViewCart();
+            return View("ViewCart");
+        }
     }
 
 }

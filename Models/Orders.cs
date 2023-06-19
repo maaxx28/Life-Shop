@@ -1,4 +1,6 @@
-﻿namespace LifeShop.Models
+﻿using Microsoft.AspNetCore.Mvc;
+
+namespace LifeShop.Models
 {
     public class Order
     {
@@ -7,7 +9,7 @@
         public int ID { get; private set; }
         public int CustomerID { get; set; }
         public int TotalItems { get; set; }
-        public int TotalCost { get; set; }
+        public decimal TotalCost { get; set; }
         public DateTime OrderDate { get; set; }
         public int PaymentID { get; set; }
         public Order(int id)
@@ -22,9 +24,11 @@
 
                 CustomerID = theReader.GetInt32(1);
                 TotalItems = theReader.GetInt32(2);
-                TotalCost = theReader.GetInt32(3);
+                TotalCost = theReader.GetDecimal(3);
                 OrderDate = theReader.GetDateTime(4);
                 PaymentID = theReader.GetInt32(5);
+
+                Connection.Close();
             }
             else
             {
@@ -35,7 +39,7 @@
                 PaymentID = 0;
             }
         }
-        public string Save()
+        public int Save()
         {
             SqlCommand theCommand = new("OrderUpdate", Connection);
             theCommand.CommandType = System.Data.CommandType.StoredProcedure;
@@ -70,8 +74,35 @@
             {
                 Connection.Close();
             }
-
-            return message;
+            if(success)
+            {
+                Shipping theShipment = new Shipping(0);
+                theShipment.OrderID = ID;
+                theShipment.Status = "Created";
+                theShipment.Save();
+            }
+            return ID;
+        }
+        public int GetShipment(int id)
+        {
+            SqlConnection staticConnection = new(ConnectionStrings.local);
+            SqlCommand theCommand = new("SELECT ID FROM Shipping WHERE OrderID='" + id + "';", staticConnection);
+            staticConnection.Open();
+            int theShipment;
+            try
+            {
+                theShipment = Convert.ToInt32(theCommand.ExecuteScalar());
+            }
+            catch (Exception ex)
+            {
+                theShipment =Convert.ToInt32(null);
+                Console.WriteLine(ex.Message);
+            }
+            finally
+            {
+                staticConnection.Close();
+            }
+            return theShipment;
         }
         public static void Delete(int id)
         {

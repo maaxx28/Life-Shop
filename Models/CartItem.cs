@@ -10,7 +10,7 @@ namespace LifeShop.Models
         public int CartID { get; set; }
         public int ProductID { get; set; }
         public int Quantity { get; set; }
-        public int Price { get; set; }
+        public decimal Price { get; set; }
         public CartItem(int id)
         {
             if (id != 0)
@@ -24,7 +24,9 @@ namespace LifeShop.Models
                 CartID = theReader.GetInt32(1);
                 ProductID = theReader.GetInt32(2);
                 Quantity = theReader.GetInt32(3);
-                Price = theReader.GetInt32(4);
+                Price = theReader.GetDecimal(4);
+
+                Connection.Close();
             }
             else
             {
@@ -71,29 +73,45 @@ namespace LifeShop.Models
 
             return message;
         }
-        public static void Delete(int id)
+        public string Delete(int id)
         {
             SqlConnection staticConnection = new(ConnectionStrings.local);
-            SqlCommand theCommand = new("DELETE FROM CartItem WHERE ID=" + id + ";", staticConnection);
+            SqlCommand theCommand = new("DELETE FROM CartItem WHERE ID='" + id + "';", staticConnection);
             staticConnection.Open();
+            String theMessage = "Success";
             try
             {
                 theCommand.ExecuteNonQuery();
             }
             catch (Exception ex)
             {
-                String theMessage = ex.Message;
+                theMessage = ex.Message;
             }
             finally
             {
                 staticConnection.Close();
             }
+            return theMessage;
         }
         public static List<CartItem> GetList()
         {
             SqlConnection staticConnection = new(ConnectionStrings.local);
             List<CartItem> list = new();
             SqlCommand theCommand = new("SELECT ID From CartItem;", staticConnection);
+            staticConnection.Open();
+            SqlDataReader theReader = theCommand.ExecuteReader();
+            while (theReader.Read())
+            {
+                list.Add(new CartItem(theReader.GetInt32(0)));
+            }
+            staticConnection.Close();
+            return list;
+        }
+        public static List<CartItem> GetListByCart(int cartID)
+        {
+            SqlConnection staticConnection = new(ConnectionStrings.local);
+            List<CartItem> list = new();
+            SqlCommand theCommand = new("SELECT ID From CartItem Where SessionID = " + cartID +";", staticConnection);
             staticConnection.Open();
             SqlDataReader theReader = theCommand.ExecuteReader();
             while (theReader.Read())

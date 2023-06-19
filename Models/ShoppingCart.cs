@@ -7,7 +7,7 @@
         public int ID { get; private set; }
         public int CustomerID { get; set; }
         public int TotalItems { get; set; }
-        public int TotalCost { get; set; }
+        public decimal TotalCost { get; set; }
         public ShoppingCart(int id)
         {
             if (id != 0)
@@ -20,7 +20,8 @@
 
                 CustomerID = theReader.GetInt32(1);
                 TotalItems = theReader.GetInt32(2);
-                TotalCost = theReader.GetInt32(3);
+                TotalCost = theReader.GetDecimal(3);
+                Connection.Close();
             }
             else
             {
@@ -29,6 +30,7 @@
                 TotalCost = 0;
             }
         }
+
         public string Save()
         {
             SqlCommand theCommand = new("ShoppingCartUpdate", Connection);
@@ -37,8 +39,6 @@
             theCommand.Parameters.AddWithValue("@CustomerID", CustomerID);
             theCommand.Parameters.AddWithValue("@TotalItems", TotalItems);
             theCommand.Parameters.AddWithValue("@TotalCost", TotalCost);
-
-
             SqlParameter newParameter = new("@NewID", 0);
             newParameter.Direction = System.Data.ParameterDirection.Output;
             theCommand.Parameters.Add(newParameter);
@@ -63,7 +63,7 @@
             {
                 Connection.Close();
             }
-
+            Connection.Close();
             return message;
         }
         public static void Delete(int id)

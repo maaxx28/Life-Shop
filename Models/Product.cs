@@ -30,6 +30,8 @@
                 Price = theReader.GetDecimal(3);
                 Picture = theReader.GetString(4);
                 Discount = theReader.GetInt32(5);
+
+                Connection.Close();
             }
             else
             {

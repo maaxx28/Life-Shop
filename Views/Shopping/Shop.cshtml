@@ -2,6 +2,7 @@
 }
 
 <h2>Shopping Corner</h2>
+<p>@ViewData["Message"]</p>
 @{
     List<Product> shopItems = ViewBag.shopItems;
         <center>
@@ -56,7 +57,7 @@
 
                                 if(Convert.ToInt32(ViewData["CustomerShopping"])==1)
                                 {
-                                    <td><a asp-action="AddToCart" asp-route-id="@forSale.ID">Add To Cart</a></td>
+                                    <td><a asp-action="AddToCart" asp-route-id=@forSale.ID>Add To Cart</a></td>
                                 }
                                 else if (Convert.ToInt32(ViewData["ProductAdmin"]) == 1)
                                 {

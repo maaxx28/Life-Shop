@@ -20,6 +20,7 @@
         Customer currentUser = ViewBag.CurrentUser;
         <div>
         <h5>Welcome @currentUser.FirstName! What would you like to do today</h5>
+        <p><a asp-action="ShoppingIndex">Browse for Products</a></p>
         </div>
     }
     else

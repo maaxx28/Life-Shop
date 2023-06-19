@@ -25,10 +25,12 @@
                 OrderID = theReader.GetInt32(1);
                 Status = theReader.GetString(2);
                 ShipAddress = theReader.GetString(3);
-                ShipCity = theReader.GetString(4);
-                ShipState = theReader.GetString(5);
-                ShipZip = theReader.GetInt32(6);
-                DeliveryDate = theReader.GetDateTime(7);
+                DeliveryDate = theReader.GetDateTime(4);
+                ShipCity = theReader.GetString(5);
+                ShipState = theReader.GetString(6);
+                ShipZip = theReader.GetInt32(7);
+
+                Connection.Close();
             }
             else
             {
@@ -50,9 +52,9 @@
             theCommand.Parameters.AddWithValue("@ShippingStatus", Status);
             theCommand.Parameters.AddWithValue("@ShippingAddress", ShipAddress);
             theCommand.Parameters.AddWithValue("@ShippingCity", ShipCity);
-            theCommand.Parameters.AddWithValue("@ShipState", ShipState);
-            theCommand.Parameters.AddWithValue("ShipZip", ShipZip);
-            theCommand.Parameters.AddWithValue("DelivaryDate", DeliveryDate);
+            theCommand.Parameters.AddWithValue("@ShippingState", ShipState);
+            theCommand.Parameters.AddWithValue("ShippingZip", ShipZip);
+            theCommand.Parameters.AddWithValue("DeliveryDate", DeliveryDate);
 
             SqlParameter newParameter = new("@NewID", 0);
             newParameter.Direction = System.Data.ParameterDirection.Output;

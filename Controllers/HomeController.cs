@@ -42,6 +42,7 @@ namespace LifeShop.Controllers
             else
             {
                 HttpContext.Session.SetInt32("_LoggedInCustomerID", theID);
+                HttpContext.Session.SetInt32("Password", theID);
                 return Index();
             }
            // return Index();

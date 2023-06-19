@@ -1,0 +1,67 @@
+﻿<center>
+    <h2>Your Shopping Cart</h2>
+    @*This is the table rows for products.*@
+    <table class="w-75">
+        <tr class="headerrow2">
+            <td class="cell4">Image</td>
+            <td class="cell4">Name</td>
+            <td class="cell4">Description</td>
+            <td class="cell4">Price</td>
+            <td class="cell4">Discount</td>
+            <td class="cell4">Total</td>
+        </tr>
+        @{
+            List<CartItem> thisCart = ViewBag.ShoppingCart;
+            if (thisCart.Count == 0)
+            {
+                <tr>
+                    <td class="cell4" colspan="5">Your cart is empty.</td>
+                </tr>
+            }
+            else
+            {
+                foreach (CartItem shopped in ViewBag.ShoppingCart)
+                {
+                    Product forSale = new Product(shopped.ProductID);
+                    
+                    decimal total = (forSale.Price * (100 - forSale.Discount)) / 100;
+                    string priceb = forSale.Price.ToString("0.00");
+                    string totalb = total.ToString("0.00");
+                    string price = "$" + forSale.Price;
+                    string discount = @forSale.Discount + "%";
+                    string totalprice = "$" + totalb;
+                    <tr>
+                        <td><img src="@forSale.Picture" height="35px" width="35" /></td>
+                        <td class="cell4">@forSale.Name</td>
+                        <td class="cell4">@forSale.Description</td>
+                        <td class="cell4">@String.Format("{0:0,0.##}",priceb)</td>
+                        <td class="cell4">@discount</td>
+                        <td class="cell4">@String.Format("{0:0,0.##}",totalprice)</td>
+                        <td class="cell4"><a asp-action="ViewDetails" asp-route-id="@forSale.ID">Details</a></td>
+                        <td><a asp-action="RemoveItem" asp-route-id="@shopped.ID">Remove</a></td>
+                        @{
+
+                            
+                            if (Convert.ToInt32(ViewData["CustomerShopping"]) == 1)
+                            {
+                                <td><a asp-action="AddToCart" asp-route-id=@forSale.ID>Add To Cart</a></td>
+                            }
+
+                        }
+                    </tr>
+                }
+            }
+
+        }
+    </table>
+    @{
+        if(ViewBag.ShoppingCart.Count != 0)
+        {
+            string Cost = "$" + ViewBag.CartDetails.TotalCost.ToString("0.00");
+            <p>Total Items:&#160 @ViewBag.CartDetails.TotalItems</p>
+            <p>Total Cost:&#160 @Cost</p>
+            <a asp-controller="CheckOut" asp-action="PaymentPage">Check Out</a>
+            <a asp-action="EmptyCart">Empty Cart</a>
+        }   
+    }
+</center>

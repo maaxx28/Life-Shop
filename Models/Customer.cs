@@ -36,6 +36,8 @@
                 Zip = theReader.GetString(8);
                 UserName = theReader.GetString(9);
                 Password = theReader.GetString(10);
+
+                Connection.Close();
             }
             else
             {
@@ -159,6 +161,27 @@
         {
             SqlConnection staticConnection = new(ConnectionStrings.local);
             SqlCommand theCommand = new("SELECT ID FROM Customer WHERE CustomerUsername='" + userName + "' AND CustomerPassword='" + password + "';", staticConnection);
+            staticConnection.Open();
+            int theID;
+            try
+            {
+                theID = Convert.ToInt32(theCommand.ExecuteScalar());
+            }
+            catch (Exception ex)
+            {
+                theID = 0;
+                Console.WriteLine(ex.Message);
+            }
+            finally
+            {
+                staticConnection.Close();
+            }
+            return theID;
+        }
+        public static int GetCart(int id)
+        {
+            SqlConnection staticConnection = new(ConnectionStrings.local);
+            SqlCommand theCommand = new("SELECT ID FROM ShoppingCart WHERE CustomerID='" + id +"';", staticConnection);
             staticConnection.Open();
             int theID;
             try

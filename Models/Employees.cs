@@ -39,6 +39,8 @@
                 UserName = theReader.GetString(9);
                 Password = theReader.GetString(10);
                 Role = theReader.GetString(11);
+
+                Connection.Close();
             }
             else
             {

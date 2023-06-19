@@ -1,11 +1,17 @@
-﻿@{<center>
+﻿
+<center>
     <h2>Product Details</h2>
     <img src="@ViewBag.thisProduct.Picture" height="100px", width="100px"/>
-    <p>@ViewBag.thisProduct.Name</p>
-    <p>@ViewBag.thisProduct.Description</p>
-    <p>@ViewBag.thisProduct.Price</p>
-    <p>@ViewBag.thisProduct.Discount</p>
-    <p><input type="number" /></p>
-</center>
+    <p><label>Name:&#160</label>@ViewBag.thisProduct.Name</p>
+    <p><label>Description:&#160 </label>@ViewBag.thisProduct.Description</p>
+        @{
+            string thisprice = "$" + ViewBag.thisProduct.Price.ToString("0.00");
+        }
+    <p><label>Price:&#160 </label>@String.Format("{0:0,0.00}",thisprice)</p>
+    <p><label>Discount:&#160 </label>@ViewBag.thisProduct.Discount%</p>
+    <form name="Star">
+        <p><label>Quantity:&#160 </label><input type="number" name="Quantity" /></p>
+    </form>
 
-}
+    <p>Total: $</p>
+</center>
