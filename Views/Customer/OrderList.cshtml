@@ -1,0 +1,39 @@
+﻿<center>
+    <h2>Order List</h2>
+
+    <table class="w-75">
+        <tr class="headerrow2">
+            <td class="cell4">Order ID</td>
+            <td class="cell4">Total Items</td>
+            <td class="cell4">Total Cost</td>
+            <td class="cell4">Order Date</td>
+
+        </tr>
+        @{
+            if (ViewBag.MyOrders == null)
+            {
+                <tr>
+                    <td class="cell4" colspan="5">You don't have any orders.</td>
+                </tr>
+            }
+            else
+            {
+                foreach (Order myOrder in ViewBag.MyOrders)
+                {
+                    <tr>
+                        <td class="cell4">@myOrder.ID</td>
+                        <td class="cell4">@myOrder.TotalItems</td>
+                        <td class="cell4">@String.Format("{0:0,0.00}",myOrder.TotalCost)</td>
+                        <td class="cell4">@myOrder.OrderDate.ToString("d")</td>
+                        <td><a asp-action="OrderDetails" asp-route-id ="@myOrder.ID">Details</a></td>
+
+ 
+                    </tr>
+                }
+            }
+
+        }
+    </table>
+</center>
+    
+</center>

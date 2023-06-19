@@ -24,8 +24,8 @@ namespace LifeShop.Controllers
             thisPayment.PaymentAddress = HttpContext.Request.Form["addAddress"];
             thisPayment.PaymentCity = HttpContext.Request.Form["addCity"];
             thisPayment.PaymentState = HttpContext.Request.Form["addState"];
-            thisPayment.PaymentZip = Convert.ToInt32(HttpContext.Request.Form["addZip"]);
-            thisPayment.CardNumber = Convert.ToInt32(HttpContext.Request.Form["addCardNumber"]);
+            thisPayment.PaymentZip = HttpContext.Request.Form["addZip"];
+            thisPayment.CardNumber = HttpContext.Request.Form["addCardNumber"];
             thisPayment.CardType = HttpContext.Request.Form["addCardType"];
             thisPayment.CVC = Convert.ToInt32(HttpContext.Request.Form["addCVC"]);
             if(HttpContext.Request.Form["addAddress"] =="")
@@ -115,6 +115,7 @@ namespace LifeShop.Controllers
                 thisShipping.ShipCity = HttpContext.Request.Form["addShipCity"];
                 thisShipping.ShipState = HttpContext.Request.Form["addShipState"];
                 thisShipping.ShipZip = Convert.ToInt32(HttpContext.Request.Form["addShipZip"]);
+                thisShipping.Status = "Not Shipped";
                 ViewData["ShippingMessage"] = thisShipping.Save();
 
                 thisCart.TotalItems = 0;

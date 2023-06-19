@@ -23,7 +23,7 @@
                 foreach (CartItem shopped in ViewBag.ShoppingCart)
                 {
                     Product forSale = new Product(shopped.ProductID);
-                    
+
                     decimal total = (forSale.Price * (100 - forSale.Discount)) / 100;
                     string priceb = forSale.Price.ToString("0.00");
                     string totalb = total.ToString("0.00");
@@ -57,8 +57,10 @@
     @{
         if(ViewBag.ShoppingCart.Count != 0)
         {
+            string tax2 = "6%";
             string Cost = "$" + ViewBag.CartDetails.TotalCost.ToString("0.00");
             <p>Total Items:&#160 @ViewBag.CartDetails.TotalItems</p>
+            <p>Tax:&#160 @tax2</p>
             <p>Total Cost:&#160 @Cost</p>
             <a asp-controller="CheckOut" asp-action="PaymentPage">Check Out</a>
             <a asp-action="EmptyCart">Empty Cart</a>

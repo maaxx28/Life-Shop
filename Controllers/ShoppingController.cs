@@ -80,11 +80,11 @@ namespace LifeShop.Controllers
             Product thisProduct = new Product(id);
 
             CartItem newItem = new CartItem(0);
-            
+            decimal tax = Convert.ToDecimal(1.06);
             newItem.ProductID = id;
             newItem.CartID = thisCart.ID;
             newItem.Quantity = 1;
-            newItem.Price = (thisProduct.Price * (100 - thisProduct.Discount)) / 100;
+            newItem.Price = (thisProduct.Price * (100 - thisProduct.Discount) / 100)*tax;
 
 
             

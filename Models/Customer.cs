@@ -30,12 +30,13 @@
                 LastName = theReader.GetString(2);
                 Email = theReader.GetString(3);
                 Phone = theReader.GetString(4);
-                Address = theReader.GetString(5);
-                City = theReader.GetString(6);
-                State = theReader.GetString(7);
-                Zip = theReader.GetString(8);
-                UserName = theReader.GetString(9);
-                Password = theReader.GetString(10);
+                UserName = theReader.GetString(5);
+                Password = theReader.GetString(6);
+                Address = theReader.GetString(7);
+                City = theReader.GetString(8);
+                State = theReader.GetString(9);
+                Zip = theReader.GetString(10);
+
 
                 Connection.Close();
             }

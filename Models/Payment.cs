@@ -7,12 +7,12 @@
         public int ID { get; private set; }
         public int CustomerID { get; set; }
         public string CardType { get; set; }
-        public int CardNumber { get; set; }
+        public string CardNumber { get; set; }
         public int CVC { get; set; }
         public string PaymentAddress { get; set; }
         public string PaymentCity { get; set; }
         public string PaymentState { get; set; }
-        public int PaymentZip { get; set; }
+        public string PaymentZip { get; set; }
         public Payment(int id)
         {
             if (id != 0)
@@ -25,12 +25,12 @@
 
                 CustomerID = theReader.GetInt32(1);
                 CardType = theReader.GetString(2);
-                CardNumber = theReader.GetInt16(3);
+                CardNumber = theReader.GetString(3);
                 CVC = theReader.GetInt32(4);
                 PaymentAddress = theReader.GetString(5);
                 PaymentCity = theReader.GetString(6);
                 PaymentState = theReader.GetString(7);
-                PaymentZip = theReader.GetInt32(8);
+                PaymentZip = theReader.GetString(8);
 
                 Connection.Close();
             }
@@ -38,12 +38,12 @@
             {
                 CustomerID = 0;
                 CardType = "";
-                CardNumber = 0;
+                CardNumber = "";
                 CVC = 0;
                 PaymentAddress = "";
                 PaymentCity = "";
                 PaymentState = "";
-                PaymentZip = 00000;
+                PaymentZip = "";
             }
         }
         public string Save()

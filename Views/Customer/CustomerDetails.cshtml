@@ -1,10 +1,192 @@
-﻿
-@{
-}
-<h1>Account Info</h1>
+﻿<center>
+    @{
+        Customer thisCustomer = ViewBag.CurrentCustomer;
+        if(Convert.ToInt32(ViewData["Edit"]) == 1)
+        {
+            <h2>Edit Account</h2>
 
-<h2>General</h2>
+            <div class="text-center">
+                <h2> Edit General Information</h2>
+                <p class="error">@ViewData["NewCustomerMessage"]</p>
+                <br />
+            </div>
+            <form  asp-controller="Customer" asp-action="EditCustomer">
+            <dl class="row">
+                <dt class="col-sm-2">
+                    First Name
+                </dt>
+                <dd class="col-sm-10">
+                    <input name="editFirstName" value="@thisCustomer.FirstName" />
+                </dd>
+            </dl>
+            <dl class="row">
+                <dt class="col-sm-2">
+                    Last Name
+                </dt>
+                <dd class="col-sm-10">
+                    <input name="editLastName" value="@thisCustomer.LastName"/>
+                </dd>
+            </dl>
+            <h2>Edit Contact Details</h2>
+            <br/>
+            <dl class="row">
+                <dt class="col-sm-2">
+                    Address
+                </dt>
+                <dd class="col-sm-10">
+                    <input name="editAddress" value="@thisCustomer.Address"/>
+                </dd>
+    </dl>
+        <br/>
+        <dl class="row">
+        <dt class="col-sm-2">
+            City
+        </dt>
+        <dd class="col-sm-10">
+            <input name="editCity" value="@thisCustomer.City"/>
+        </dd>
+    </dl>
+        <br/>
+        <dl class="row">
+        <dt class="col-sm-2">
+            State
+        </dt>
+        <dd class="col-sm-10">
+            <input name="editState" value="@thisCustomer.State"/>
+        </dd>
+    </dl>
+        <br/>
+        <dl class="row">
+        <dt class="col-sm-2">
+            Zip
+        </dt>
+        <dd class="col-sm-10">
+            <input name="editZip" value="@thisCustomer.Zip"/>
+        </dd>
+    </dl>
+    <br/>
+        <dl class="row">
+        <dt class="col-sm-2">
+            Email
+        </dt>
+        <dd class="col-sm-10">
+            <input name="editEmail" value="@thisCustomer.Email" />
+        </dd>
+    </dl>
+    <dl class="row">
+        <dt class="col-sm-2">
+            Phone
+        </dt>
+        <dd class="col-sm-10">
+            <input name="editPhone" type="tel" value="@thisCustomer.Phone"/>
+        </dd>
+    </dl>
+    <h2 class="text-center">Enter Account Details</h2>
+        <dl class="row">
+        <dt class="col-sm-2">
+            User Name
+        </dt>
+        <dd class="col-sm-10">
+            <input name="editUserName" value="@thisCustomer.UserName"/>
+        </dd>
+    </dl>
+    <dl class="row">
+        <dt class="col-sm-2">
+            Password
+        </dt>
+        <dd class="col-sm-10">
+            <input name="editPassword" type="password"/>
+        </dd>
+    </dl>
+    <input type="submit" />
+    <button asp-action="CustomerDetails" >Cancel</button>
+            </Form>
+        }
+        else
+        {
+        <h2>General Informaiton</h2>
+        <dl class="row">
+            <dt class="col-sm-2">
+                First Name
+            </dt>
+            <dd class="col-sm-10">
+                @ViewBag.CurrentCustomer.FirstName
+            </dd>
+        </dl>
+        <dl class="row">
+            <dt class="col-sm-2">
+                Last Name
+            </dt>
+            <dd class="col-sm-10">
+                @ViewBag.CurrentCustomer.LastName
+            </dd>
+        </dl>
+    <h2>Contact Details</h2>
+        <br/>
+        <dl class="row">
+            <dt class="col-sm-2">
+                Address
+            </dt>
+            <dd class="col-sm-10">
+                @ViewBag.CurrentCustomer.Address
+            </dd>
+        </dl>
+        <br/>
+        <dl class="row">
+            <dt class="col-sm-2">
+                City
+            </dt>
+            <dd class="col-sm-10">
+                @ViewBag.CurrentCustomer.City
+            </dd>
+        </dl>
+        <br/>
+        <dl class="row">
+            <dt class="col-sm-2">
+                State
+            </dt>
+            <dd class="col-sm-10">
+                @ViewBag.CurrentCustomer.State
+            </dd>
+        </dl>
+        <br/>
+        <dl class="row">
+            <dt class="col-sm-2">
+                Zip
+            </dt>
+            <dd class="col-sm-10">
+                @ViewBag.CurrentCustomer.Zip
+            </dd>
+        </dl>
+        <br/>
+        <dl class="row">
+            <dt class="col-sm-2">
+                Email
+            </dt>
+            <dd class="col-sm-10">
+                @ViewBag.CurrentCustomer.Email
+            </dd>
+        </dl>
+        <dl class="row">
+            <dt class="col-sm-2">
+                Phone
+            </dt>
+            <dd class="col-sm-10">
+                @ViewBag.CurrentCustomer.Phone
+            </dd>
+        </dl>
+    <h2 class="text-center">Enter Account Details</h2>
+        <dl class="row">
+            <dt class="col-sm-2">
+                User Name
+            </dt>
+            <dd class="col-sm-10">
+                @ViewBag.CurrentCustomer.UserName
+            </dd>
+    </dl>
 
-<h2>Contact</h2>
+    <a asp-action="Edit">Edit</a>
+        }
+    }
 
-<h2>Admin</h2>
+</center>

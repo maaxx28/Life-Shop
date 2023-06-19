@@ -1,0 +1,115 @@
+﻿<center>
+    <h2>Order Details</h2>
+    <dl class="row">
+        <dt class="col-sm-2">
+            ID
+        </dt>
+        <dd class="col-sm-10">
+            @ViewBag.ThisOrder.ID
+        </dd>
+    </dl>
+    <dl class="row">
+        <dt class="col-sm-2">
+            Total Items
+        </dt>
+        <dd class="col-sm-10">
+            @ViewBag.ThisOrder.TotalItems
+        </dd>
+    </dl>
+    <dl class="row">
+        <dt class="col-sm-2">
+            Total Cost
+        </dt>
+        <dd class="col-sm-10">
+            @String.Format("{0:0,0.##}",ViewBag.ThisOrder.TotalCost)
+        </dd>
+    </dl>
+    <dl class="row">
+        <dt class="col-sm-2">
+            Order Date
+        </dt>
+        <dd class="col-sm-10">
+            @ViewBag.ThisOrder.OrderDate.ToString("d")
+        </dd>
+    </dl>
+    <h3>Shipping Address</h3>
+    <dl class="row">
+        <dt class="col-sm-2">
+            Address
+        </dt>
+        <dd class="col-sm-10">
+            @ViewBag.ThisShipment.ShipAddress
+        </dd>
+    </dl>
+    <dl class="row">
+        <dt class="col-sm-2">
+            City
+        </dt>
+        <dd class="col-sm-10">
+            @ViewBag.ThisShipment.ShipCity
+        </dd>
+    </dl>
+    <dl class="row">
+        <dt class="col-sm-2">
+            State
+        </dt>
+        <dd class="col-sm-10">
+            @ViewBag.ThisShipment.ShipState
+        </dd>
+    </dl>
+    <dl class="row">
+        <dt class="col-sm-2">
+            ZipCode
+        </dt>
+        <dd class="col-sm-10">
+            @ViewBag.ThisShipment.ShipZip
+        </dd>
+    </dl>
+    <dl class="row">
+        <dt class="col-sm-2">
+            Status
+        </dt>
+        <dd class="col-sm-10">
+            @ViewBag.ThisShipment.Status
+        </dd>
+    </dl>
+    <h3>Billing Information</h3>
+    <dl class="row">
+        <dt class="col-sm-2">
+           Address
+        </dt>
+        <dd class="col-sm-10">
+            @ViewBag.ThisPayment.PaymentAddress
+        </dd>
+    </dl>
+    <dl class="row">
+        <dt class="col-sm-2">
+            City
+        </dt>
+        <dd class="col-sm-10">
+            @ViewBag.ThisPayment.PaymentCity
+        </dd>
+    </dl>
+    <dl class="row">
+        <dt class="col-sm-2">
+            State
+        </dt>
+        <dd class="col-sm-10">
+            @ViewBag.ThisPayment.PaymentState
+        </dd>
+    </dl>
+    <dl class="row">
+        <dt class="col-sm-2">
+            ZipCode
+        </dt>
+        <dd class="col-sm-10">
+            @ViewBag.ThisPayment.PaymentZip
+        </dd>
+    </dl>
+    @{
+        if(ViewBag.ThisShipment.Status == "Not Shipped")
+        {
+            <a asp-action="CancelOrder" asp-route-id="@ViewBag.ThisShipment.ID">Cancel Order</a>
+        }
+    }
+</center>
